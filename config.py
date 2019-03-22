@@ -1,12 +1,29 @@
-from flask import Flask
+class Config(object):
+    """
+    Common configurations
+    """
 
-app = Flask(__name__)
-
-
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
+    # Put any configurations here that are common across all environments
 
 
-if __name__ == '__main__':
-    app.run()
+class DevelopmentConfig(Config):
+    """
+    Development configurations
+    """
+
+    DEBUG = True
+    SQLALCHEMY_ECHO = True
+
+
+class ProductionConfig(Config):
+    """
+    Production configurations
+    """
+
+    DEBUG = False
+
+
+app_config = {
+    'development': DevelopmentConfig,
+    'production': ProductionConfig
+}
